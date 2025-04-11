@@ -1,0 +1,77 @@
+.tabs-div{
+    margin: 20px 10px;
+    display: flex;
+    background-color: #dae8ff;
+    width: fit-content;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.tabs-block{
+    color: black;
+    padding: 5px 10px;
+    border: 1px solid black;
+    border-top: 0px;
+    border-bottom: 0px;
+}
+
+.home-page-div{
+    margin: 30px 20px;
+    border: 3px solid #6da0f5;
+    border-bottom: 0px;
+    border-radius: 5px;
+    /* font-size: 20px; */
+    /* font-weight: bold; */
+}
+
+.home-page-div1{
+    /* padding: 10px 20px; */
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0px 25px;
+}
+
+.announcement-card-main-div{
+    border: 3px solid #6da0f5;
+    margin: 20px 0px;
+    padding: 10px 10px;
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+}
+
+.announcement-title{
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.new-logo-div{
+    font-size: 30px;
+    color: red;
+    margin-right: 8px;
+}
+
+.announcement-data{
+    font-size: 18px;
+    margin: 10px 0px;
+}
+
+.announcement-attachments{
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.attachments-links{
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
+
+.announcement-uploaded-on{
+    font-weight: bold;
+    margin-top: 15px;
+}

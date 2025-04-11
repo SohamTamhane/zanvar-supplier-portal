@@ -1,0 +1,9 @@
+.contact-page-main-div{
+    display: flex;
+    justify-content: center;
+}
+
+.contact-page-main-div img{
+    width: auto;
+    height: 450px;
+}

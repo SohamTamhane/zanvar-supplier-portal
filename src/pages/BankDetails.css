@@ -1,0 +1,28 @@
+.row{
+    display: flex;
+    align-items: center;
+}
+
+.mt-3{
+    margin-top: 10px;
+}
+
+.bank-main-div-tab{
+    margin: 40px 20px;
+}
+
+.col-md-6{
+    margin: 0px 20px;
+}
+
+.col-md-6 label{
+    margin: 0px 20px;
+}
+
+.col-md-3{
+    margin: 0px 20px;
+}
+
+.col-md-3 label{
+    margin: 0px 20px;
+}
