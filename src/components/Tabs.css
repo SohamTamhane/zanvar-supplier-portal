@@ -1,18 +1,41 @@
 .tabs-div{
     margin: 20px 10px;
     display: flex;
-    background-color: #dae8ff;
+    background-color: #83acdb;
     width: fit-content;
-    border: 1px solid black;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+
+.tabs-div1{
+    margin: -20px 10px;
+    display: flex;
+    background-color: #306898;
+    color: white;
+    /* width: fit-content; */
+    border: 1px solid white;
     border-radius: 5px;
 }
 
 .tabs-block{
     color: black;
     padding: 5px 10px;
-    border: 1px solid black;
+    border: 1px solid white;
     border-top: 0px;
     border-bottom: 0px;
+}
+
+.tabs-block1{
+    color: white;
+    padding: 5px 10px;
+    border: 1px solid white;
+    border-top: 0px;
+    border-bottom: 0px;
+}
+
+.active-tab{
+    background-color: #306898;
+    color: white;
 }
 
 .home-page-div{
@@ -28,7 +51,7 @@
     /* padding: 10px 20px; */
     font-size: 20px;
     font-weight: bold;
-    margin: 0px 25px;
+    margin: 35px 25px;
 }
 
 .announcement-card-main-div{
@@ -53,11 +76,26 @@
     font-size: 30px;
     color: red;
     margin-right: 8px;
+    animation: shakeZoom 0.5s infinite, blink 1s infinite;
+}
+
+@keyframes shakeZoom {
+  0%   { transform: rotate(0deg) scale(1); }
+  25%  { transform: rotate(-5deg) scale(1.05); }
+  50%  { transform: rotate(5deg) scale(1.1); }
+  75%  { transform: rotate(-5deg) scale(1.05); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
 }
 
 .announcement-data{
     font-size: 18px;
     margin: 10px 0px;
+    font-weight: 100;
 }
 
 .announcement-attachments{

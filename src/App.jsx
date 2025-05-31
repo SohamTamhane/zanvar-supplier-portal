@@ -17,6 +17,7 @@ import PoConfirmDetails from './pages/PoConfirmDetails'
 import PaymentDetails from './pages/PaymentDetails'
 import CreditDetails from './pages/CreditDetails'
 import ContactUs from './pages/ContactUs'
+import ASNDetails from './pages/ASNDetails'
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
                         <Route path='/grn' element={<GRNDetails/>}/>
                         <Route path='/gst' element={<GSTDetails/>}/>
                         <Route path='/schedule' element={<ScheduleDetails/>}/>
+                        <Route path='/asn' element={<ASNDetails/>}/>
 
                         <Route path='/finance' element={<Finance/>}/>
                         <Route path='/debit' element={<DebitDetails/>}/>

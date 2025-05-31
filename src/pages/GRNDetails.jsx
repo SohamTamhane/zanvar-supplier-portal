@@ -30,6 +30,7 @@ function GRNDetails() {
             }
         })
             .then((res) => {
+                console.log(res.data.data);
                 setData(res.data.data);
             }).catch((err) => {
                 console.log(err);
@@ -45,7 +46,7 @@ function GRNDetails() {
     return (
         <>
             <Header />
-            <Tabs />
+            <Tabs active="Service"/>
             <div>
                 <main className="main-content">
                     <div className="card-container">
@@ -70,13 +71,13 @@ function GRNDetails() {
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th className="card-text">TrnNo</th>
-                                            <th className="card-text">SubGlAcNo</th>
-                                            <th className="card-text">TrnDate</th>
-                                            <th className="card-text">MaterialCode</th>
+                                            <th className="card-text">GrnNo</th>
+                                            <th className="card-text">GRN Date</th>
+                                            <th className="card-text">PO No</th>
+                                            <th className="card-text">PO Date</th>
                                             <th className="card-text">MaterialName</th>
-                                            <th className="card-text">Quantity</th>
                                             <th className="card-text">MaterialUom</th>
+                                            <th className="card-text">Quantity</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -84,12 +85,12 @@ function GRNDetails() {
                                             data.map((details, index)=>(
                                                 <tr key={index}>
                                                     <td className="card-text">{details.ShortTrnNo}</td>
-                                                    <td className="card-text">{details.SubGlAcNo}</td>
                                                     <td className="card-text">{details.TrnDate}</td>
-                                                    <td className="card-text">{details.MaterialCode}</td>
+                                                    <td className="card-text"></td>
+                                                    <td className="card-text"></td>
                                                     <td className="card-text">{details.MaterialName}</td>
-                                                    <td className="card-text">{details.Quantity}</td>
                                                     <td className="card-text">{details.MaterialUom}</td>
+                                                    <td className="card-text">{details.Quantity}</td>
                                                 </tr>
                                             ))
                                         }

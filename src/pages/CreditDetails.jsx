@@ -67,7 +67,7 @@ function CreditDetails() {
     return (
         <>
             <Header />
-            <Tabs />
+            <Tabs active="Finance" />
             <div>
                 <main className="main-content">
                     <div className="card-container">
@@ -89,34 +89,41 @@ function CreditDetails() {
                                 </div>
                             </div>
                             <div style={{ overflowX: "auto" }}>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th class="card-text">GrnDate</th>
-                                            <th class="card-text">GrnNo</th>
-                                            <th class="card-text">PartyBillDate</th>
-                                            <th class="card-text">PartyBillNo</th>
-                                            <th class="card-text">TrnAmount</th>
-                                            <th class="card-text">TrnNo</th>
-                                            <th class="card-text">PDF</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            data.map((details, index) => (
-                                                <tr key={index}>
-                                                    <td class="card-text">{details.GrnDate}</td>
-                                                    <td class="card-text">{details.GrnNo}</td>
-                                                    <td class="card-text">{details.PartyBillDate}</td>
-                                                    <td class="card-text">{details.PartyBillNo}</td>
-                                                    <td class="card-text">{details.TrnAmount}</td>
-                                                    <td class="card-text">{details.TrnNo}</td>
-                                                    <td class="card-text" onClick={() => handleDownloadData(cookies.supplierportal, userInfo?.companyId, details.TrnNo)}><IoMdDownload /></td>
+                                {
+                                    data.length === 0 ?
+                                        <div className="spinnerMainDiv">
+                                            <div class="spinner"></div>
+                                        </div>
+                                        :
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th class="card-text">CN No</th>
+                                                    <th class="card-text">CN Date</th>
+                                                    <th class="card-text">PartyBillDate</th>
+                                                    <th class="card-text">PartyBillNo</th>
+                                                    <th class="card-text">TrnAmount</th>
+                                                    <th class="card-text">TrnNo</th>
+                                                    <th class="card-text">PDF</th>
                                                 </tr>
-                                            ))
-                                        }
-                                    </tbody>
-                                </table>
+                                            </thead>
+                                            <tbody>
+                                                {
+                                                    data.map((details, index) => (
+                                                        <tr key={index}>
+                                                            <td class="card-text">{details.GrnNo}</td>
+                                                            <td class="card-text">{details.GrnDate}</td>
+                                                            <td class="card-text">{details.PartyBillDate}</td>
+                                                            <td class="card-text">{details.PartyBillNo}</td>
+                                                            <td class="card-text">{details.TrnAmount}</td>
+                                                            <td class="card-text">{details.TrnNo}</td>
+                                                            <td class="card-text" onClick={() => handleDownloadData(cookies.supplierportal, userInfo?.companyId, details.TrnNo)}><IoMdDownload /></td>
+                                                        </tr>
+                                                    ))
+                                                }
+                                            </tbody>
+                                        </table>
+                                }
                             </div>
                         </div>
                     </div>

@@ -47,7 +47,7 @@ function RejectionNoteDetails() {
     return (
         <>
             <Header />
-            <Tabs />
+            <Tabs active="Finance" />
             <div>
                 <main className="main-content">
                     <div className="card-container">
@@ -69,36 +69,49 @@ function RejectionNoteDetails() {
                                 </div>
                             </div>
                             <div style={{ overflowX: "auto" }}>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th class="card-text">InvNo</th>
-                                            <th class="card-text">InvDate</th>
-                                            <th class="card-text">PoNo</th>
-                                            <th class="card-text">PoAmendNo</th>
-                                            <th class="card-text">MaterialName</th>
-                                            <th class="card-text">Rate</th>
-                                            <th class="card-text">Quantity</th>
-                                            <th class="card-text">Amount</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            data.map((details, index) => (
-                                                <tr key={index}>
-                                                    <td class="card-text">{details.InvNo}</td>
-                                                    <td class="card-text">{details.InvDate}</td>
-                                                    <td class="card-text">{details.PoNo}</td>
-                                                    <td class="card-text">{details.PoAmendNo}</td>
-                                                    <td class="card-text">{details.MaterialName}</td>
-                                                    <td class="card-text">{details.Rate}</td>
-                                                    <td class="card-text">{details.Quantity}</td>
-                                                    <td class="card-text">{details.Amount}</td>
+                                {
+                                    data.length === 0 ?
+                                        <div className="spinnerMainDiv">
+                                            <div class="spinner"></div>
+                                        </div>
+                                        :
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th class="card-text">InvNo</th>
+                                                    <th class="card-text">InvDate</th>
+                                                    <th class="card-text">PoNo</th>
+                                                    <th class="card-text">PoAmendNo</th>
+                                                    <th class="card-text">MaterialName</th>
+                                                    <th class="card-text">Quantity</th>
+                                                    <th class="card-text">Basic Amount</th>
+                                                    <th class="card-text">CGST</th>
+                                                    <th class="card-text">SGST</th>
+                                                    <th class="card-text">IGST</th>
+                                                    <th class="card-text">Total Amount</th>
                                                 </tr>
-                                            ))
-                                        }
-                                    </tbody>
-                                </table>
+                                            </thead>
+                                            <tbody>
+                                                {
+                                                    data.map((details, index) => (
+                                                        <tr key={index}>
+                                                            <td class="card-text">{details.InvNo}</td>
+                                                            <td class="card-text">{details.InvDate}</td>
+                                                            <td class="card-text">{details.PoNo}</td>
+                                                            <td class="card-text">{details.PoAmendNo}</td>
+                                                            <td class="card-text">{details.MaterialName}</td>
+                                                            <td class="card-text">{details.Quantity}</td>
+                                                            <td class="card-text">{details.Rate}</td>
+                                                            <td class="card-text">{details.CgstAmount}</td>
+                                                            <td class="card-text">{details.SgstAmount}</td>
+                                                            <td class="card-text">{details.IgstAmount}</td>
+                                                            <td class="card-text">{details.Amount}</td>
+                                                        </tr>
+                                                    ))
+                                                }
+                                            </tbody>
+                                        </table>
+                                }
                             </div>
                         </div>
                     </div>

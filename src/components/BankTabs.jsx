@@ -4,9 +4,9 @@ import "./Tabs.css";
 function BankTabs(){
 
     return (
-        <div className="tabs-div">
-            <Link to='/bankDetails' className="tabs-block">General Details</Link>
-            <Link to='/bankDetails/finance' className="tabs-block">Finance Details</Link>
+        <div className="tabs-div1">
+            <Link to='/bankDetails' className="tabs-block1">General Details</Link>
+            <Link to='/bankDetails/finance' className="tabs-block1">Finance Details</Link>
         </div>
     )
 }

@@ -40,7 +40,7 @@ function PaymentDetails() {
     async function handleDownloadData(token, id, trn) {
         // const trn = id + trn.replace("-", "");
         // console.log(trn);
-        
+
         await axios.get(`/api/SupplierPortalApi/getpaymentpdf?CompanyId=${id}&TrnNo=${trn}`, {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -67,7 +67,7 @@ function PaymentDetails() {
     return (
         <>
             <Header />
-            <Tabs />
+            <Tabs active="Finance" />
             <div>
                 <main className="main-content">
                     <div className="card-container">
@@ -89,34 +89,41 @@ function PaymentDetails() {
                                 </div>
                             </div>
                             <div style={{ overflowX: "auto" }}>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th class="card-text">TrnNo</th>
-                                            <th class="card-text">PayDate</th>
-                                            <th class="card-text">PayNo</th>
-                                            <th class="card-text">ChequeDate</th>
-                                            <th class="card-text">ChequeNo</th>
-                                            <th class="card-text">Amount</th>
-                                            <th class="card-text">PDF</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            data.map((details, index) => (
-                                                <tr key={index}>
-                                                    <td class="card-text">{details.TrnNo}</td>
-                                                    <td class="card-text">{details.PayDate}</td>
-                                                    <td class="card-text">{details.PayNo}</td>
-                                                    <td class="card-text">{details.ChequeDate}</td>
-                                                    <td class="card-text">{details.ChequeNo}</td>
-                                                    <td class="card-text">{details.Amount}</td>
-                                                    <td class="card-text" onClick={() => handleDownloadData(cookies.supplierportal, userInfo?.companyId, details.TrnNo)}><IoMdDownload /></td>
+                                {
+                                    data.length === 0 ?
+                                        <div className="spinnerMainDiv">
+                                            <div class="spinner"></div>
+                                        </div>
+                                        :
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th class="card-text">TrnNo</th>
+                                                    <th class="card-text">PayDate</th>
+                                                    <th class="card-text">PayNo</th>
+                                                    <th class="card-text">ChequeDate</th>
+                                                    <th class="card-text">ChequeNo</th>
+                                                    <th class="card-text">Amount</th>
+                                                    <th class="card-text">PDF</th>
                                                 </tr>
-                                            ))
-                                        }
-                                    </tbody>
-                                </table>
+                                            </thead>
+                                            <tbody>
+                                                {
+                                                    data.map((details, index) => (
+                                                        <tr key={index}>
+                                                            <td class="card-text">{details.TrnNo}</td>
+                                                            <td class="card-text">{details.PayDate}</td>
+                                                            <td class="card-text">{details.PayNo}</td>
+                                                            <td class="card-text">{details.ChequeDate}</td>
+                                                            <td class="card-text">{details.ChequeNo}</td>
+                                                            <td class="card-text">{details.Amount}</td>
+                                                            <td class="card-text" onClick={() => handleDownloadData(cookies.supplierportal, userInfo?.companyId, details.TrnNo)}><IoMdDownload /></td>
+                                                        </tr>
+                                                    ))
+                                                }
+                                            </tbody>
+                                        </table>
+                                }
                             </div>
                         </div>
                     </div>

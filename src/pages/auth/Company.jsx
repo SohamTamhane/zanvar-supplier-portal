@@ -65,8 +65,17 @@ function Company() {
             </nav>
             <div className="main-div">
                 <div className="main-div2">
-                    {
+                    {/* {
                         companyList.map((elm, index)=>(
+                            <div key={index} className="box1">
+                                <div onClick={()=>handleSelectCompany(elm.CompanyId, elm.CompanyName, elm.CompanyShortName)}>{elm.CompanyName}</div>
+                            </div>
+                        ))
+                    } */}
+                    {
+                        companyList.length===0 ? 
+                            <div class="spinner"></div>
+                        : companyList.map((elm, index)=>(
                             <div key={index} className="box1">
                                 <div onClick={()=>handleSelectCompany(elm.CompanyId, elm.CompanyName, elm.CompanyShortName)}>{elm.CompanyName}</div>
                             </div>

@@ -26,14 +26,14 @@ body {
     text-align: center;
 }
 
-.nav-main-div {
+/* .nav-main-div {
     display: grid;
     align-items: center;
     grid-template-columns: 33.33% 33.33% 33.33%;
     background-color: #e1e1e1;
     padding: 5px 0px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
+} */
 
 .nav-text {
     text-align: center;
@@ -54,4 +54,36 @@ body {
 
 .box1 div:hover {
     cursor: pointer;
+}
+
+
+.spinnerMainDiv{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 6px solid #ccc;
+  border-top: 6px solid #4caf50; /* Green top */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 100px auto; /* Center horizontally */
+}
+
+.spinner1 {
+  width: 30px;
+  height: 30px;
+  border: 4px solid #ccc;
+  border-top: 4px solid #4caf50; /* Green top */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 20px auto; /* Center horizontally */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

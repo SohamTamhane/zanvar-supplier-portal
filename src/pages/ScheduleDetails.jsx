@@ -45,7 +45,7 @@ function ScheduleDetails() {
     return (
         <>
             <Header />
-            <Tabs />
+            <Tabs active="Service"/>
             <div>
                 <main className="main-content">
                     <div className="card-container">

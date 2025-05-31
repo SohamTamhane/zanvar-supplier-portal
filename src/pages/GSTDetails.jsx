@@ -6,6 +6,9 @@ import { Context } from "../config/Context";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 
+import ExcelJS from "exceljs";
+import { saveAs } from "file-saver";
+
 function GSTDetails() {
 
     const { userInfo, setUserInfo } = useContext(Context);
@@ -20,30 +23,60 @@ function GSTDetails() {
         return `${day}/${month}/${year}`;
     }
 
-    const downloadCSV = () => {
+    const downloadCSV = async () => {
+
         if (data.length === 0) return;
 
-        // Extract headers
-        const headers = Object.keys(data[0]).join(",") + "\n";
+        const workbook = new ExcelJS.Workbook();
+        const worksheet = workbook.addWorksheet("Data");
 
-        // Convert object values to CSV format
-        const rows = data.map(obj => Object.values(obj).join(",")).join("\n");
+        // Add headers
+        // const headers = Object.keys(data[0]);
+        const headers = ["GSTIN of supplier", "Trade/Legal name of the Supplier", "Trn No", "Trn Date", "Invoice number", "Invoice Date", "Invoice Value (₹)", "Place of supply", "Rate (%)", "Taxable Value (₹)", "Integrated Tax  (₹)", "Central Tax (₹)", "State/UT tax (₹)", "Status", "GSTIN of supplier", "Trade/Legal name of the Supplier", "Invoice number", "Invoice Date", "Invoice Value (₹)", "Place of supply", "Rate (%)", "Taxable Value (₹)", "Integrated Tax  (₹)", "Central Tax (₹)", "State/UT tax (₹)", "Counter Party Return status", "Doc Type"];
+        // worksheet.addRow(headers);
 
-        // Combine headers and rows
-        const csvContent = headers + rows;
+        worksheet.columns = headers.map(header => ({
+            header,
+            key: header,
+            width: 15,
+        }));
 
-        // Create a Blob and trigger the download
-        const blob = new Blob([csvContent], { type: "text/csv" });
-        const fileURL = URL.createObjectURL(blob);
+        worksheet.getRow(1).eachCell(cell => {
+            cell.font = { bold: true };
+        });
 
-        // Use a single `window.open` to download
-        const a = document.createElement("a");
-        a.href = fileURL;
-        a.download = "data.csv";
-        a.click();
+        // Add data rows
+        data.forEach(row => {
+            // const newRow = worksheet.addRow(Object.values(row));
+            const newRow = worksheet.addRow([row.GstIn, row.LongName, row.PrnTrnNo, row.PrnTrnDate, row.SortInvNo, row.SortDate, row.SysInvoiceValue, row.SysStateName, row.SysRate, row.SysTaxableValue, row.SysIGstAmt, row.SysCGstAmt, row.SysSGstAmt, row.MatchStatus, row.PortalGstIn, row.PortalLongName, row.PortalInvoiceNo, row.PortalInvoiceDate, row.PortalInvoiceValue, row.SysStateName, row.PortalRate, row.PortalTaxableValue, row.PortalIGstAmt, row.PortalCGstAmt, row.PortalSGstAmt, row.RtnStatus, row.InvoiceType]);
+            // console.log(row);
+            newRow.eachCell((cell, colNumber) => {
+                // Example: color based on cell value
+                if (typeof cell.value === "string") {
+                    const val = cell.value.toLowerCase();
+                    if (val === "match") {
+                        cell.fill = {
+                            type: "pattern",
+                            pattern: "solid",
+                            fgColor: { argb: "90EE90" },
+                        };
+                    } else if (val === "mismatch") {
+                        cell.fill = {
+                            type: "pattern",
+                            pattern: "solid",
+                            fgColor: { argb: "FF4500" },
+                        };
+                    }
+                }
+            });
+        });
 
-        // Cleanup the Blob URL
-        URL.revokeObjectURL(fileURL);
+        // Export the file
+        const buffer = await workbook.xlsx.writeBuffer();
+        const blob = new Blob([buffer], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        });
+        saveAs(blob, `GST_Details_${fromDate}_${toDate}.xlsx`);
     };
 
     async function handleFetchData(token, id) {
@@ -71,7 +104,7 @@ function GSTDetails() {
     return (
         <>
             <Header />
-            <Tabs />
+            <Tabs active="Finance" />
             <div>
                 <main className="main-content">
                     <div className="card-container">
@@ -96,42 +129,49 @@ function GSTDetails() {
                                 </div>
                             </div>
                             <div style={{ overflowX: "auto" }}>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th class="card-text">LongName</th>
-                                            <th class="card-text">PartyBillNo</th>
-                                            <th class="card-text">PartyBillDate</th>
-                                            <th class="card-text">TrnDate</th>
-                                            <th class="card-text">TrnNO</th>
-                                            <th class="card-text">SysTaxableValue</th>
-                                            <th class="card-text">SysCGstAmt</th>
-                                            <th class="card-text">SysSGstAmt</th>
-                                            <th class="card-text">SysIGstAmt</th>
-                                            <th class="card-text">SysInvoiceValue</th>
-                                            <th class="card-text">SysRate</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            data.map((details, index) => (
-                                                <tr key={index}>
-                                                    <td class="card-text">{details.LongName}</td>
-                                                    <td class="card-text">{details.PartyBillNo}</td>
-                                                    <td class="card-text">{details.PartyBillDate}</td>
-                                                    <td class="card-text">{details.TrnDate}</td>
-                                                    <td class="card-text">{details.TrnNO}</td>
-                                                    <td class="card-text">{details.SysTaxableValue}</td>
-                                                    <td class="card-text">{details.SysCGstAmt}</td>
-                                                    <td class="card-text">{details.SysSGstAmt}</td>
-                                                    <td class="card-text">{details.SysIGstAmt}</td>
-                                                    <td class="card-text">{details.SysInvoiceValue}</td>
-                                                    <td class="card-text">{details.SysRate}</td>
+                                {
+                                    data.length === 0 ?
+                                        <div className="spinnerMainDiv">
+                                            <div class="spinner"></div>
+                                        </div>
+                                        :
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th class="card-text">LongName</th>
+                                                    <th class="card-text">PartyBillNo</th>
+                                                    <th class="card-text">PartyBillDate</th>
+                                                    <th class="card-text">TrnDate</th>
+                                                    <th class="card-text">TrnNO</th>
+                                                    <th class="card-text">SysTaxableValue</th>
+                                                    <th class="card-text">SysCGstAmt</th>
+                                                    <th class="card-text">SysSGstAmt</th>
+                                                    <th class="card-text">SysIGstAmt</th>
+                                                    <th class="card-text">SysInvoiceValue</th>
+                                                    <th class="card-text">SysRate</th>
                                                 </tr>
-                                            ))
-                                        }
-                                    </tbody>
-                                </table>
+                                            </thead>
+                                            <tbody>
+                                                {
+                                                    data.map((details, index) => (
+                                                        <tr key={index}>
+                                                            <td class="card-text">{details.LongName}</td>
+                                                            <td class="card-text">{details.PartyBillNo}</td>
+                                                            <td class="card-text">{details.PartyBillDate}</td>
+                                                            <td class="card-text">{details.TrnDate}</td>
+                                                            <td class="card-text">{details.TrnNO}</td>
+                                                            <td class="card-text">{details.SysTaxableValue}</td>
+                                                            <td class="card-text">{details.SysCGstAmt}</td>
+                                                            <td class="card-text">{details.SysSGstAmt}</td>
+                                                            <td class="card-text">{details.SysIGstAmt}</td>
+                                                            <td class="card-text">{details.SysInvoiceValue}</td>
+                                                            <td class="card-text">{details.SysRate}</td>
+                                                        </tr>
+                                                    ))
+                                                }
+                                            </tbody>
+                                        </table>
+                                }
                             </div>
                         </div>
                     </div>
